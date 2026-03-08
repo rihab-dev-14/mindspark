@@ -1,0 +1,7 @@
+{
+  "name": "Remix: MindSpark",
+  "description": "Your personal AI study partner. Turn textbooks into summaries, notes, and flashcards.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

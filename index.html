@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindSpark - AI Study Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Updated PayPal SDK with data-sdk-integration-source and simplified parameters -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&intent=capture" data-sdk-integration-source="button-factory"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: 'var(--background)',
+              surface: 'var(--surface)',
+              sidebar: 'var(--sidebar)',
+              primary: 'var(--primary)',
+              primaryHover: 'var(--primary-hover)',
+              accent: 'var(--accent)',
+              success: 'var(--success)',
+              text: 'var(--text)',
+              muted: 'var(--muted)',
+              border: 'var(--border)',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+      
+      :root {
+        --background: #F8FAFC;
+        --surface: #FFFFFF;
+        --sidebar: #F1F5F9;
+        --primary: #6366F1;
+        --primary-hover: #4F46E5;
+        --accent: #14B8A6;
+        --success: #10B981;
+        --text: #1E293B;
+        --muted: #64748B;
+        --border: rgba(0, 0, 0, 0.1);
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-card-bg: rgba(255, 255, 255, 0.4);
+      }
+
+      .dark {
+        --background: #0B1120;
+        --surface: #161F32;
+        --sidebar: #080C17;
+        --primary: #818CF8;
+        --primary-hover: #6366F1;
+        --accent: #2DD4BF;
+        --success: #34D399;
+        --text: #CBD5E1;
+        --muted: #64748B;
+        --border: rgba(255, 255, 255, 0.05);
+        --glass-bg: rgba(22, 31, 50, 0.7);
+        --glass-card-bg: rgba(22, 31, 50, 0.4);
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--background); 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--muted); 
+        border-radius: 4px;
+        opacity: 0.5;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary); 
+      }
+
+      .glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border);
+      }
+      
+      .glass-card {
+        background: var(--glass-card-bg);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+      }
+      
+      .glass-card:hover {
+        background: var(--glass-bg);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+      }
+
+      .dark .glass-card:hover {
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
