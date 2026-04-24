@@ -41,8 +41,8 @@ export const generateOpenAIChatResponse = async (
   messages: { role: 'user' | 'assistant' | 'system', content: string }[],
   config?: { baseURL?: string, model?: string, apiKey?: string }
 ): Promise<string> => {
-  const baseURL = config?.baseURL || 'https://api.ai.cc/v1';
-  const model = config?.model || 'openai/gpt-5-2';
+  const baseURL = config?.baseURL || localStorage.getItem('mindspark_openai_base_url') || 'https://api.ai.cc/v1';
+  const model = config?.model || localStorage.getItem('mindspark_openai_model') || 'openai/gpt-5-2';
   const apiKey = config?.apiKey || localStorage.getItem('mindspark_openai_key') || process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
@@ -66,3 +66,40 @@ export const generateOpenAIChatResponse = async (
     throw error;
   }
 };
+
+export async function* generateOpenAIChatStream(
+  messages: { role: 'user' | 'assistant' | 'system', content: string }[],
+  config?: { baseURL?: string, model?: string, apiKey?: string }
+) {
+  const baseURL = config?.baseURL || localStorage.getItem('mindspark_openai_base_url') || 'https://api.ai.cc/v1';
+  const model = config?.model || localStorage.getItem('mindspark_openai_model') || 'openai/gpt-5-2';
+  const apiKey = config?.apiKey || localStorage.getItem('mindspark_openai_key') || process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("OpenAI API Key is missing.");
+  }
+
+  const openai = new OpenAI({
+    baseURL,
+    apiKey,
+    dangerouslyAllowBrowser: true
+  });
+
+  try {
+    const stream = await openai.chat.completions.create({
+      model,
+      messages,
+      stream: true,
+    });
+
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content || "";
+      if (content) {
+        yield content;
+      }
+    }
+  } catch (error) {
+    console.error("OpenAI Stream Error:", error);
+    yield " [Error: OpenAI Connection lost] ";
+  }
+}

@@ -1,20 +1,26 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# MindSpark - AI Study Suite
 
-# Run and deploy your AI Studio app
+Your personal AI study partner. Turn textbooks into summaries, notes, and flashcards.
 
-This contains everything you need to run your app locally.
+## 🚀 GitHub Pages Deployment
 
-View your app in AI Studio: https://ai.studio/apps/fab6cc02-d128-40e7-a6c3-02a0eee336b7
+This project is pre-configured for GitHub Pages deployment.
 
-## Run Locally
+### Automatic Deployment (Recommended)
+1. Push your code to the `main` branch of a GitHub repository.
+2. The GitHub Action in `.github/workflows/deploy.yml` will automatically build and deploy your site.
+3. On GitHub, go to **Settings > Pages** and ensure the source is set to the `gh-pages` branch.
 
-**Prerequisites:**  Node.js
+### Manual Deployment
+If you want to deploy manually from your local machine:
+```bash
+npm install
+npm run deploy
+```
 
+## 🛠️ Configuration
+For most GitHub Pages sites (e.g., `https://username.github.io/repo-name/`), the `base` in `vite.config.ts` is set to `./`. This should work automatically for assets.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🔑 Environment Variables
+Remember that GitHub Pages is a public static host. **Do not put private API keys in your code.**
+This app is designed to allow users to input their own keys via the **API Explorer** or **Settings**, which are stored securely in their local browser storage.

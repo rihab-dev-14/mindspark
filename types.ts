@@ -29,7 +29,8 @@ export enum AppView {
   CHAT = 'CHAT',
   SAVED = 'SAVED',
   SETTINGS = 'SETTINGS',
-  ABOUT = 'ABOUT'
+  ABOUT = 'ABOUT',
+  APIS = 'APIS'
 }
 
 export enum AppState {

@@ -14,16 +14,15 @@
         theme: {
           extend: {
             colors: {
-              background: 'var(--background)',
-              surface: 'var(--surface)',
-              sidebar: 'var(--sidebar)',
-              primary: 'var(--primary)',
-              primaryHover: 'var(--primary-hover)',
-              accent: 'var(--accent)',
-              success: 'var(--success)',
-              text: 'var(--text)',
-              muted: 'var(--muted)',
-              border: 'var(--border)',
+              background: '#0B1120', // Deeper, cooler slate (Less harsh than pure black, deeper than slate-900)
+              surface: '#161F32', // Soft dark blue-grey surface
+              sidebar: '#080C17', // Almost black, blue-tinted
+              primary: '#818CF8', // Indigo 400 - Calming, focus-oriented
+              primaryHover: '#6366F1', // Indigo 500
+              accent: '#2DD4BF', // Teal 400 - Fresh, soothing green-blue
+              success: '#34D399', // Emerald 400
+              text: '#CBD5E1', // Slate 300 - Softer white to reduce eye strain
+              muted: '#64748B', // Slate 500
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
@@ -44,41 +43,10 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
       
-      :root {
-        --background: #F8FAFC;
-        --surface: #FFFFFF;
-        --sidebar: #F1F5F9;
-        --primary: #6366F1;
-        --primary-hover: #4F46E5;
-        --accent: #14B8A6;
-        --success: #10B981;
-        --text: #1E293B;
-        --muted: #64748B;
-        --border: rgba(0, 0, 0, 0.1);
-        --glass-bg: rgba(255, 255, 255, 0.7);
-        --glass-card-bg: rgba(255, 255, 255, 0.4);
-      }
-
-      .dark {
-        --background: #0B1120;
-        --surface: #161F32;
-        --sidebar: #080C17;
-        --primary: #818CF8;
-        --primary-hover: #6366F1;
-        --accent: #2DD4BF;
-        --success: #34D399;
-        --text: #CBD5E1;
-        --muted: #64748B;
-        --border: rgba(255, 255, 255, 0.05);
-        --glass-bg: rgba(22, 31, 50, 0.7);
-        --glass-card-bg: rgba(22, 31, 50, 0.4);
-      }
-
       body {
-        background-color: var(--background);
-        color: var(--text);
+        background-color: #0B1120;
+        color: #CBD5E1;
         font-family: 'Inter', sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
       }
       
       /* Custom scrollbar */
@@ -87,37 +55,32 @@
         height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: var(--background); 
+        background: #0B1120; 
       }
       ::-webkit-scrollbar-thumb {
-        background: var(--muted); 
+        background: #334155; 
         border-radius: 4px;
-        opacity: 0.5;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary); 
+        background: #475569; 
       }
 
       .glass {
-        background: var(--glass-bg);
+        background: rgba(22, 31, 50, 0.7);
         backdrop-filter: blur(12px);
-        border: 1px solid var(--border);
+        border: 1px solid rgba(255, 255, 255, 0.05);
       }
       
       .glass-card {
-        background: var(--glass-card-bg);
+        background: rgba(22, 31, 50, 0.4);
         backdrop-filter: blur(8px);
-        border: 1px solid var(--border);
+        border: 1px solid rgba(255, 255, 255, 0.05);
         transition: all 0.3s ease;
       }
       
       .glass-card:hover {
-        background: var(--glass-bg);
+        background: rgba(22, 31, 50, 0.6);
         transform: translateY(-2px);
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-      }
-
-      .dark .glass-card:hover {
         box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
       }
     </style>

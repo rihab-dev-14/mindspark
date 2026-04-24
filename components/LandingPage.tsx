@@ -29,7 +29,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       features: ['10 Summaries per day', 'Basic Notes Generation', 'Standard Support', 'Mobile Access'],
       cta: t('startFree'),
       highlight: false,
-      btnStyle: 'bg-surface text-text hover:bg-surface/80'
+      btnStyle: 'bg-surface text-text hover:bg-slate-800'
     },
     {
       name: 'Pro Scholar',
@@ -37,6 +37,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       period: '/mo',
       desc: 'Power features for serious students.',
       features: ['Unlimited Summaries', 'Image Analysis & OCR', 'Advanced Flashcards', 'Priority Processing', 'No Watermarks'],
+      cta: 'Get Pro Scholar',
       highlight: true,
       btnStyle: 'bg-primary text-white hover:bg-primaryHover shadow-lg shadow-primary/25'
     },
@@ -46,8 +47,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       period: '/mo',
       desc: 'For study groups and research teams.',
       features: ['Everything in Pro', 'Shared Workspaces', 'Team Collaboration', 'API Access', 'Dedicated Support'],
+      cta: t('contactSales'),
       highlight: false,
-      btnStyle: 'bg-surface text-text hover:bg-surface/80'
+      btnStyle: 'bg-surface text-text hover:bg-slate-800'
     }
   ];
 
@@ -96,8 +98,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
         </nav>
 
         <div className="flex items-center gap-4">
-           <button onClick={() => openAuth('login')} className="text-text hover:text-primary font-medium text-sm transition-colors">{t('login')}</button>
-           <button onClick={() => openAuth('signup')} className="px-5 py-2.5 bg-text text-background text-sm font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-text/10 hover:shadow-text/20 transform hover:-translate-y-0.5">
+           <button onClick={() => openAuth('login')} className="text-text hover:text-white font-medium text-sm transition-colors">{t('login')}</button>
+           <button onClick={() => openAuth('signup')} className="px-5 py-2.5 bg-text text-background text-sm font-bold rounded-xl hover:bg-white transition-all shadow-lg shadow-white/10 hover:shadow-white/20 transform hover:-translate-y-0.5">
              {t('getStarted')}
            </button>
         </div>
@@ -125,7 +127,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                {t('startFree')}
                <Icon name={dir === 'rtl' ? 'arrow-left' : 'arrow-right'} className={`transition-transform ${dir === 'rtl' ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
             </button>
-            <button onClick={() => openAuth('login')} className="px-8 py-4 bg-surface text-text text-lg font-bold rounded-2xl hover:bg-surface/80 hover:scale-105 transition-all border border-border backdrop-blur-md flex items-center justify-center gap-2">
+            <button onClick={() => openAuth('login')} className="px-8 py-4 bg-surface text-text text-lg font-bold rounded-2xl hover:bg-slate-800 hover:scale-105 transition-all border border-slate-700/50 backdrop-blur-md flex items-center justify-center gap-2">
                <Icon name="play" className="text-xs" />
                {t('watchDemo')}
             </button>
@@ -184,10 +186,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                         <p className="text-muted text-lg mb-8">{t('featTutorDesc')}</p>
                         
                         {/* Mock Chat UI */}
-                        <div className="flex-1 bg-background/50 rounded-xl p-4 border border-border space-y-3">
+                        <div className="flex-1 bg-slate-900/50 rounded-xl p-4 border border-slate-800 space-y-3">
                              <div className="flex items-start gap-2">
-                                <div className="w-6 h-6 rounded-full bg-surface flex-shrink-0"></div>
-                                <div className="bg-surface rounded-lg rounded-tl-none p-2 text-xs text-muted w-3/4">Can you explain Photosynthesis?</div>
+                                <div className="w-6 h-6 rounded-full bg-slate-700 flex-shrink-0"></div>
+                                <div className="bg-slate-800 rounded-lg rounded-tl-none p-2 text-xs text-slate-300 w-3/4">Can you explain Photosynthesis?</div>
                              </div>
                              <div className="flex items-start gap-2 flex-row-reverse">
                                 <div className="w-6 h-6 rounded-full bg-indigo-500 flex-shrink-0 flex items-center justify-center"><Icon name="bolt" className="text-[10px] text-white"/></div>
@@ -315,6 +317,64 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
              </div>
          </div>
 
+         {/* Testimonials */}
+         <div className="mt-32 w-full max-w-7xl mx-auto px-4">
+             <div className="text-center mb-16">
+                 <h2 className="text-3xl md:text-5xl font-black text-text mb-6 tracking-tight">Loved by students worldwide</h2>
+                 <p className="text-lg text-muted max-w-2xl mx-auto font-medium">Join thousands of high-achievers who have transformed their study habits.</p>
+             </div>
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                 {[
+                     { name: "Alex Johnson", role: "Medical Student", text: "MindSpark literally saved my finals. The flashcard generation is a game changer for anatomy.", avatar: "https://i.pravatar.cc/150?u=alex" },
+                     { name: "Sarah Chen", role: "Law Student", text: "Summarizing complex case studies used to take hours. Now it takes seconds. Worth every penny.", avatar: "https://i.pravatar.cc/150?u=sarah" },
+                     { name: "Michael Ross", role: "High School Senior", text: "The AI Advisor is like having a private tutor 24/7. My grades have never been better.", avatar: "https://i.pravatar.cc/150?u=sarah" }
+                 ].map((t, i) => (
+                     <div key={i} className="glass-card p-8 rounded-3xl border border-white/5 bg-surface/40 backdrop-blur-md relative group hover:border-primary/30 transition-all duration-300 hover:-translate-y-2">
+                         <div className="flex items-center gap-4 mb-6">
+                             <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full border-2 border-primary/20" referrerPolicy="no-referrer" />
+                             <div>
+                                 <div className="font-bold text-text">{t.name}</div>
+                                 <div className="text-xs text-muted font-bold uppercase tracking-widest">{t.role}</div>
+                             </div>
+                         </div>
+                         <p className="text-slate-300 italic leading-relaxed text-sm">"{t.text}"</p>
+                         <div className="mt-6 flex text-amber-400 text-[10px]">
+                             {[1,2,3,4,5].map(s => <Icon key={s} name="star" type="solid" />)}
+                         </div>
+                     </div>
+                 ))}
+             </div>
+         </div>
+
+         {/* Testimonials */}
+         <div className="mt-32 w-full max-w-7xl mx-auto px-4">
+             <div className="text-center mb-16">
+                 <h2 className="text-3xl md:text-5xl font-black text-text mb-6 tracking-tight">Loved by students worldwide</h2>
+                 <p className="text-lg text-muted max-w-2xl mx-auto font-medium">Join thousands of high-achievers who have transformed their study habits.</p>
+             </div>
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                 {[
+                     { name: "Alex Johnson", role: "Medical Student", text: "MindSpark literally saved my finals. The flashcard generation is a game changer for anatomy.", avatar: "https://i.pravatar.cc/150?u=alex" },
+                     { name: "Sarah Chen", role: "Law Student", text: "Summarizing complex case studies used to take hours. Now it takes seconds. Worth every penny.", avatar: "https://i.pravatar.cc/150?u=sarah" },
+                     { name: "Michael Ross", role: "High School Senior", text: "The AI Advisor is like having a private tutor 24/7. My grades have never been better.", avatar: "https://i.pravatar.cc/150?u=sarah" }
+                 ].map((t, i) => (
+                     <div key={i} className="glass-card p-8 rounded-3xl border border-white/5 bg-surface/40 backdrop-blur-md relative group hover:border-primary/30 transition-all duration-300 hover:-translate-y-2">
+                         <div className="flex items-center gap-4 mb-6">
+                             <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full border-2 border-primary/20" referrerPolicy="no-referrer" />
+                             <div>
+                                 <div className="font-bold text-text">{t.name}</div>
+                                 <div className="text-xs text-muted font-bold uppercase tracking-widest">{t.role}</div>
+                             </div>
+                         </div>
+                         <p className="text-slate-300 italic leading-relaxed text-sm">"{t.text}"</p>
+                         <div className="mt-6 flex text-amber-400 text-[10px]">
+                             {[1,2,3,4,5].map(s => <Icon key={s} name="star" type="solid" />)}
+                         </div>
+                     </div>
+                 ))}
+             </div>
+         </div>
+
          {/* Pricing Section */}
          <div id="pricing" className="mt-20 w-full max-w-7xl mx-auto pb-20 px-4">
             <div className="text-center mb-10">
@@ -344,7 +404,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                     className={`relative p-8 rounded-3xl border flex flex-col transition-all duration-300 hover:-translate-y-2
                       ${plan.highlight 
                         ? 'bg-surface/80 border-primary shadow-2xl shadow-primary/10 z-10 scale-105' 
-                        : 'bg-surface/40 border-border hover:border-border/50'
+                        : 'bg-surface/40 border-slate-700/50 hover:border-slate-600'
                       }`}
                   >
                      {plan.highlight && (
@@ -371,7 +431,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <ul className={`space-y-4 mb-8 flex-1 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                         {plan.features.map((feat, idx) => (
                            <li key={idx} className="flex items-center gap-3 text-text text-sm">
-                              <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${plan.highlight ? 'bg-primary/20 text-primary' : 'bg-surface border border-border text-muted'}`}>
+                              <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${plan.highlight ? 'bg-primary/20 text-primary' : 'bg-slate-700 text-muted'}`}>
                                  <Icon name="check" className="text-xs" />
                               </div>
                               {feat}
@@ -393,27 +453,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
          {/* Final CTA Section */}
          <div className="w-full max-w-5xl mx-auto px-4 pb-20">
              <div className="relative rounded-3xl overflow-hidden p-8 md:p-16 text-center">
-                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-surface to-background backdrop-blur-sm border border-border"></div>
+                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-slate-900/50 to-background backdrop-blur-sm border border-white/10"></div>
                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
                  
                  <div className="relative z-10">
-                     <h2 className="text-3xl md:text-5xl font-black text-text mb-6 tracking-tight">
+                     <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
                          {t('ctaTitle')}
                      </h2>
-                     <p className="text-lg text-muted mb-10 max-w-2xl mx-auto leading-relaxed">
+                     <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
                          {t('ctaSubtitle')}
                      </p>
                      
                      <div className="flex flex-col sm:flex-row justify-center gap-5">
                          <button 
                              onClick={() => openAuth('signup')}
-                             className="px-10 py-4 bg-text text-background font-bold rounded-2xl hover:opacity-90 transition-all shadow-xl shadow-text/10 hover:shadow-text/20 transform hover:-translate-y-1"
+                             className="px-10 py-4 bg-white text-slate-900 font-bold rounded-2xl hover:bg-slate-100 transition-all shadow-xl shadow-white/10 hover:shadow-white/20 transform hover:-translate-y-1"
                          >
                              {t('getStarted')}
                          </button>
                          <button 
                              onClick={() => openAuth('login')}
-                             className="px-10 py-4 bg-transparent border border-border text-text font-bold rounded-2xl hover:bg-surface/50 transition-all flex items-center justify-center gap-2"
+                             className="px-10 py-4 bg-transparent border border-white/20 text-white font-bold rounded-2xl hover:bg-white/5 transition-all flex items-center justify-center gap-2"
                          >
                              <Icon name="play" className="text-xs" />
                              {t('watchDemo')}

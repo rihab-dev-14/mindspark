@@ -274,7 +274,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
       desc: 'Essential tools for casual learners.',
       features: ['10 Summaries per day', 'Basic Notes Generation', 'Standard Support'],
       highlight: false,
-      btnStyle: 'bg-surface text-text hover:bg-surface/80'
+      btnStyle: 'bg-slate-800 text-white hover:bg-slate-700'
     },
     {
       name: 'Pro Scholar',
@@ -292,7 +292,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
       desc: 'For study groups and research teams.',
       features: ['Everything in Pro', 'Shared Workspaces', 'Team Collaboration', 'API Access'],
       highlight: false,
-      btnStyle: 'bg-surface text-text hover:bg-surface/80'
+      btnStyle: 'bg-slate-800 text-white hover:bg-slate-700'
     }
   ];
 
@@ -301,7 +301,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
       case 'account':
         return (
           <div className="space-y-8 animate-fade-in">
-             <div className="flex items-center gap-6 pb-6 border-b border-border">
+             <div className="flex items-center gap-6 pb-6 border-b border-white/5">
                 <div className="relative group cursor-pointer">
                    <img src={user.avatar || "https://i.pravatar.cc/150?u=a042581f4e29026024d"} alt="Profile" className="w-24 h-24 rounded-2xl border-4 border-surface object-cover shadow-xl" />
                    <div className="absolute inset-0 bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-sm">
@@ -309,42 +309,42 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                    </div>
                 </div>
                 <div>
-                   <h3 className="text-3xl font-bold text-text mb-1">{name || user.name}</h3>
-                   <p className="text-muted">@{username || user.email.split('@')[0]}</p>
-                   <span className="inline-block mt-2 px-3 py-1 bg-surface rounded-full text-xs text-muted border border-border">{user.email}</span>
+                   <h3 className="text-3xl font-bold text-white mb-1">{name || user.name}</h3>
+                   <p className="text-slate-400">@{username || user.email.split('@')[0]}</p>
+                   <span className="inline-block mt-2 px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-400 border border-slate-700">{user.email}</span>
                 </div>
              </div>
 
              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                  <div className="space-y-6">
                     {/* Identity Section */}
-                    <div className="bg-surface/30 p-6 rounded-2xl border border-border">
-                        <h4 className="text-lg font-bold text-text mb-4 flex items-center gap-2">
+                    <div className="bg-slate-950/30 p-6 rounded-2xl border border-white/5">
+                        <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                             <Icon name="id-card" className="text-primary" /> Identity
                         </h4>
                         
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wide">{t('name')}</label>
+                                <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">{t('name')}</label>
                                 <div className="relative">
-                                    <Icon name="user" className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" />
+                                    <Icon name="user" className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                                     <input 
                                     type="text" 
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full bg-background/80 border border-border rounded-xl py-3 pl-11 pr-4 text-text focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-background"
+                                    className="w-full bg-slate-900/80 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-slate-200 focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-slate-900"
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-muted mb-2 uppercase tracking-wide">{t('username')}</label>
+                                <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">{t('username')}</label>
                                 <div className="relative">
-                                    <Icon name="at" className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" />
+                                    <Icon name="at" className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                                     <input 
                                     type="text" 
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    className="w-full bg-background/80 border border-border rounded-xl py-3 pl-11 pr-4 text-text focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-background"
+                                    className="w-full bg-slate-900/80 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-slate-200 focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-slate-900"
                                     />
                                 </div>
                             </div>
@@ -352,49 +352,49 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold text-muted mb-2 uppercase tracking-wide">{t('bio')}</label>
+                        <label className="block text-sm font-bold text-slate-300 mb-2 uppercase tracking-wide">{t('bio')}</label>
                         <textarea 
                           value={settings.bio}
                           onChange={(e) => handleChange('bio', e.target.value)}
-                          className="w-full bg-background/50 border border-border rounded-xl p-4 text-text focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-background"
+                          className="w-full bg-slate-950/50 border border-white/10 rounded-xl p-4 text-slate-200 focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-slate-900"
                           rows={4}
                         />
                     </div>
                  </div>
                  <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-bold text-muted mb-2 uppercase tracking-wide">{t('phoneNumber')}</label>
+                      <label className="block text-sm font-bold text-slate-300 mb-2 uppercase tracking-wide">{t('phoneNumber')}</label>
                       <input 
                         type="text" 
                         value={settings.phone}
                         onChange={(e) => handleChange('phone', e.target.value)}
-                        className="w-full bg-background/50 border border-border rounded-xl p-4 text-text focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-background"
+                        className="w-full bg-slate-950/50 border border-white/10 rounded-xl p-4 text-slate-200 focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all focus:bg-slate-900"
                       />
                     </div>
                     
                     <div>
-                        <label className="block text-sm font-bold text-muted mb-2 uppercase tracking-wide">{t('connectedAccounts')}</label>
+                        <label className="block text-sm font-bold text-slate-300 mb-2 uppercase tracking-wide">{t('connectedAccounts')}</label>
                         <div className="space-y-3">
-                             <button className="w-full flex items-center justify-between p-4 rounded-xl bg-background/50 border border-border hover:border-border/50 transition-all group">
+                             <button className="w-full flex items-center justify-between p-4 rounded-xl bg-slate-950/50 border border-white/10 hover:border-white/20 transition-all group">
                                 <div className="flex items-center gap-3">
-                                    <Icon name="google" type="brands" className="text-text" />
-                                    <span className="text-sm text-text font-medium">Google</span>
+                                    <Icon name="google" type="brands" className="text-white" />
+                                    <span className="text-sm text-slate-300 font-medium">Google</span>
                                 </div>
                                 <span className="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded font-bold border border-emerald-400/20">Connected</span>
                              </button>
-                             <button className="w-full flex items-center justify-between p-4 rounded-xl bg-background/50 border border-border hover:border-border/50 transition-all group">
+                             <button className="w-full flex items-center justify-between p-4 rounded-xl bg-slate-950/50 border border-white/10 hover:border-white/20 transition-all group">
                                 <div className="flex items-center gap-3">
-                                    <Icon name="github" type="brands" className="text-text" />
-                                    <span className="text-sm text-text font-medium">GitHub</span>
+                                    <Icon name="github" type="brands" className="text-white" />
+                                    <span className="text-sm text-slate-300 font-medium">GitHub</span>
                                 </div>
-                                <span className="text-xs text-muted font-bold group-hover:text-text transition-colors">Connect</span>
+                                <span className="text-xs text-slate-500 font-bold group-hover:text-white transition-colors">Connect</span>
                              </button>
                         </div>
                     </div>
 
-                    <div className="p-6 bg-gradient-to-br from-surface to-background rounded-2xl border border-border shadow-lg">
+                    <div className="p-6 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-white/10 shadow-lg">
                       <div className="flex justify-between items-center mb-4">
-                         <span className="text-sm font-medium text-muted">{t('currentPlan')}</span>
+                         <span className="text-sm font-medium text-slate-300">{t('currentPlan')}</span>
                          <span className="px-3 py-1 bg-primary text-white text-xs font-bold rounded-lg shadow-lg shadow-primary/20">{user.plan}</span>
                       </div>
                       <button 
@@ -413,13 +413,13 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
         return (
            <div className="space-y-8 animate-fade-in max-w-2xl">
               <div>
-                 <h3 className="text-2xl font-bold text-text mb-2">{t('studyPrefs')}</h3>
-                 <p className="text-muted">Customize how MindSpark generates your content.</p>
+                 <h3 className="text-2xl font-bold text-white mb-2">{t('studyPrefs')}</h3>
+                 <p className="text-slate-400">Customize how MindSpark generates your content.</p>
               </div>
 
               <div className="space-y-6">
-                 <div className="p-6 bg-surface/30 border border-border rounded-2xl">
-                    <label className="block text-sm font-bold text-text mb-4 uppercase tracking-wide">Summary Length</label>
+                 <div className="p-6 bg-slate-950/30 border border-white/5 rounded-2xl">
+                    <label className="block text-sm font-bold text-slate-200 mb-4 uppercase tracking-wide">Summary Length</label>
                     <div className="grid grid-cols-3 gap-3">
                        {['Short', 'Medium', 'Long'].map(opt => (
                           <button 
@@ -428,7 +428,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                             className={`py-3 rounded-xl border text-sm font-bold transition-all ${
                               settings.summaryLength === opt 
                               ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' 
-                              : 'bg-background/50 border-border text-muted hover:text-text hover:border-border/50'
+                              : 'bg-slate-900/50 border-white/10 text-slate-400 hover:text-white hover:border-white/20'
                             }`}
                           >
                              {opt}
@@ -437,8 +437,8 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                     </div>
                  </div>
 
-                 <div className="p-6 bg-surface/30 border border-border rounded-2xl">
-                    <label className="block text-sm font-bold text-text mb-4 uppercase tracking-wide">Note Taking Style</label>
+                 <div className="p-6 bg-slate-950/30 border border-white/5 rounded-2xl">
+                    <label className="block text-sm font-bold text-slate-200 mb-4 uppercase tracking-wide">Note Taking Style</label>
                     <div className="space-y-3">
                        {['Bullet Points', 'Outline', 'Cornell'].map(style => (
                           <div 
@@ -446,16 +446,16 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                              onClick={() => handleChange('noteStyle', style)}
                              className={`flex items-center p-4 rounded-xl border cursor-pointer transition-all ${
                                settings.noteStyle === style 
-                               ? 'bg-surface border-primary shadow-md' 
-                               : 'bg-background/50 border-border hover:border-border/50'
+                               ? 'bg-slate-800 border-primary shadow-md' 
+                               : 'bg-slate-900/50 border-white/5 hover:border-white/10'
                              }`}
                           >
                              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${dir === 'rtl' ? 'ml-4' : 'mr-4'} ${
-                                settings.noteStyle === style ? 'border-primary' : 'border-muted'
+                                settings.noteStyle === style ? 'border-primary' : 'border-slate-500'
                              }`}>
                                 {settings.noteStyle === style && <div className="w-2.5 h-2.5 bg-primary rounded-full"></div>}
                              </div>
-                             <span className={`font-medium ${settings.noteStyle === style ? 'text-text' : 'text-muted'}`}>{style}</span>
+                             <span className={`font-medium ${settings.noteStyle === style ? 'text-white' : 'text-slate-400'}`}>{style}</span>
                           </div>
                        ))}
                     </div>
@@ -468,8 +468,8 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
         return (
            <div className="space-y-8 animate-fade-in max-w-2xl">
               <div>
-                 <h3 className="text-2xl font-bold text-text mb-2">{t('appearance')}</h3>
-                 <p className="text-muted">Manage the look and feel.</p>
+                 <h3 className="text-2xl font-bold text-white mb-2">{t('appearance')}</h3>
+                 <p className="text-slate-400">Manage the look and feel.</p>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
@@ -483,8 +483,8 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                        onClick={() => setTheme(tItem.id as any)}
                        className={`p-6 rounded-2xl border flex flex-col items-center gap-4 transition-all ${
                           theme === tItem.id 
-                          ? 'bg-surface border-primary text-text shadow-lg shadow-primary/10' 
-                          : 'bg-background/30 border-border text-muted hover:bg-surface/50 hover:text-text'
+                          ? 'bg-slate-800 border-primary text-white shadow-lg shadow-primary/10' 
+                          : 'bg-slate-950/30 border-white/5 text-slate-400 hover:bg-slate-900/50 hover:text-white'
                        }`}
                     >
                        <Icon name={tItem.icon} className="text-3xl" />
@@ -499,30 +499,30 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
             return (
                <div className="space-y-8 animate-fade-in max-w-3xl">
                   <div>
-                     <h3 className="text-2xl font-bold text-text mb-2">Advanced Settings</h3>
-                     <p className="text-muted">Developer tools and external integrations.</p>
+                     <h3 className="text-2xl font-bold text-white mb-2">Advanced Settings</h3>
+                     <p className="text-slate-400">Developer tools and external integrations.</p>
                   </div>
     
                   <div className="space-y-6">
-                     <div className="p-6 bg-surface/30 border border-border rounded-2xl">
+                     <div className="p-6 bg-slate-950/30 border border-white/5 rounded-2xl">
                         
                         {/* API Key Input Section */}
-                        <div className="mb-8 p-6 bg-background border border-border rounded-2xl space-y-6">
+                        <div className="mb-8 p-6 bg-slate-900 border border-slate-800 rounded-2xl space-y-6">
                             <div>
-                                <label className="block text-sm font-bold text-muted mb-2">OpenAI API Key</label>
-                                <p className="text-xs text-muted mb-4">Enter your personal OpenAI API Key to use advanced features.</p>
+                                <label className="block text-sm font-bold text-slate-300 mb-2">OpenAI API Key</label>
+                                <p className="text-xs text-slate-500 mb-4">Enter your personal OpenAI API Key to use advanced features.</p>
                                 <div className="relative flex items-center">
-                                    <Icon name="key" className="absolute left-4 text-muted" />
+                                    <Icon name="key" className="absolute left-4 text-slate-500" />
                                     <input 
                                         type={showKey ? "text" : "password"}
                                         value={openaiKey}
                                         onChange={handleKeyChange}
                                         placeholder="sk-..."
-                                        className="w-full bg-background border border-border rounded-xl py-3 pl-10 pr-12 text-text focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        className="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 pl-10 pr-12 text-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                     />
                                     <button 
                                         onClick={() => setShowKey(!showKey)}
-                                        className="absolute right-4 text-muted hover:text-text"
+                                        className="absolute right-4 text-slate-500 hover:text-white"
                                     >
                                         <Icon name={showKey ? "eye-slash" : "eye"} />
                                     </button>
@@ -531,23 +531,23 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-bold text-muted mb-2">Base URL</label>
+                                    <label className="block text-sm font-bold text-slate-300 mb-2">Base URL</label>
                                     <input 
                                         type="text"
                                         value={openaiBaseURL}
                                         onChange={handleBaseURLChange}
                                         placeholder="https://api.openai.com/v1"
-                                        className="w-full bg-background border border-border rounded-xl py-3 px-4 text-text focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        className="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 px-4 text-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-muted mb-2">Model</label>
+                                    <label className="block text-sm font-bold text-slate-300 mb-2">Model</label>
                                     <input 
                                         type="text"
                                         value={openaiModel}
                                         onChange={handleModelChange}
                                         placeholder="gpt-4"
-                                        className="w-full bg-background border border-border rounded-xl py-3 px-4 text-text focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                        className="w-full bg-slate-950 border border-slate-700 rounded-xl py-3 px-4 text-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -555,18 +555,18 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
 
                         <div className="flex justify-between items-start mb-6">
                            <div>
-                                <h4 className="text-lg font-bold text-text flex items-center gap-2">
+                                <h4 className="text-lg font-bold text-white flex items-center gap-2">
                                     <Icon name="code-branch" className="text-accent" /> OpenAI Integration
                                 </h4>
-                                <p className="text-sm text-muted mt-1">Check fine-tuning model limits directly from OpenAI.</p>
+                                <p className="text-sm text-slate-400 mt-1">Check fine-tuning model limits directly from OpenAI.</p>
                            </div>
                            <button 
                              onClick={checkLimits}
                              disabled={loadingLimits || !openaiKey}
                              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all border flex items-center gap-2
                                 ${!openaiKey 
-                                    ? 'bg-surface text-muted border-border cursor-not-allowed' 
-                                    : 'bg-surface hover:bg-surface/80 text-text border-border'
+                                    ? 'bg-slate-800 text-slate-500 border-slate-800 cursor-not-allowed' 
+                                    : 'bg-slate-800 hover:bg-slate-700 text-white border-slate-700'
                                 }`}
                            >
                              {loadingLimits ? <Icon name="spinner" className="fa-spin" /> : <Icon name="rotate" />}
@@ -581,19 +581,19 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                         )}
     
                         {apiLimits && (
-                            <div className="bg-background border border-border rounded-xl overflow-hidden">
-                                <div className="px-4 py-2 bg-surface border-b border-border flex justify-between items-center">
-                                    <span className="text-xs font-bold text-muted uppercase">Response Data</span>
+                            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden">
+                                <div className="px-4 py-2 bg-slate-900 border-b border-slate-800 flex justify-between items-center">
+                                    <span className="text-xs font-bold text-slate-400 uppercase">Response Data</span>
                                     <span className="text-xs text-emerald-400 font-mono">200 OK</span>
                                 </div>
-                                <pre className="p-4 text-xs font-mono text-text overflow-x-auto">
+                                <pre className="p-4 text-xs font-mono text-slate-300 overflow-x-auto">
                                     {JSON.stringify(apiLimits, null, 2)}
                                 </pre>
                             </div>
                         )}
                         
                         {!apiLimits && !limitsError && (
-                            <div className="flex items-center justify-center h-24 border-2 border-dashed border-border rounded-xl text-muted text-sm">
+                            <div className="flex items-center justify-center h-24 border-2 border-dashed border-slate-800 rounded-xl text-slate-500 text-sm">
                                 {openaiKey ? "Click 'Check Limits' to fetch data." : "Please enter an OpenAI API Key above."}
                             </div>
                         )}
@@ -604,7 +604,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
 
       default:
         return (
-             <div className="flex flex-col items-center justify-center h-full text-muted">
+             <div className="flex flex-col items-center justify-center h-full text-slate-500">
                 <Icon name="gear" className="text-4xl mb-4 opacity-20" />
                 <p>Select a setting from the menu</p>
              </div>
@@ -619,31 +619,31 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
       {showUpgradeModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setShowUpgradeModal(false)}></div>
-            <div className="relative w-full max-w-5xl bg-background border border-border rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh] animate-fade-in">
+            <div className="relative w-full max-w-5xl bg-[#0B1120] border border-slate-700 rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh] animate-fade-in">
                 <div className="p-8 md:p-10">
                     <div className="flex justify-between items-start mb-8">
                         <div>
-                           <h2 className="text-3xl md:text-4xl font-black text-text">{t('upgradePlan')}</h2>
-                           <p className="text-muted text-lg mt-2">Unlock the full potential of MindSpark.</p>
+                           <h2 className="text-3xl md:text-4xl font-black text-white">{t('upgradePlan')}</h2>
+                           <p className="text-slate-400 text-lg mt-2">Unlock the full potential of MindSpark.</p>
                         </div>
-                        <button onClick={() => setShowUpgradeModal(false)} className="p-3 hover:bg-surface rounded-xl transition-colors text-muted hover:text-text"><Icon name="xmark" className="text-xl"/></button>
+                        <button onClick={() => setShowUpgradeModal(false)} className="p-3 hover:bg-slate-800 rounded-xl transition-colors text-slate-400 hover:text-white"><Icon name="xmark" className="text-xl"/></button>
                     </div>
 
                     {!checkoutPlan ? (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                             {plans.map((plan, i) => (
-                                <div key={i} className={`relative p-8 rounded-3xl border flex flex-col transition-transform hover:-translate-y-1 ${plan.highlight ? 'bg-surface/80 border-primary shadow-xl shadow-primary/10' : 'bg-surface/40 border-border'}`}>
+                                <div key={i} className={`relative p-8 rounded-3xl border flex flex-col transition-transform hover:-translate-y-1 ${plan.highlight ? 'bg-slate-800/80 border-primary shadow-xl shadow-primary/10' : 'bg-slate-900/40 border-slate-800'}`}>
                                     {plan.highlight && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-xs font-bold uppercase rounded-full shadow-lg">Most Popular</div>}
-                                    <h3 className="text-xl font-bold text-text">{plan.name}</h3>
+                                    <h3 className="text-xl font-bold text-white">{plan.name}</h3>
                                     <div className="my-6">
-                                    <span className="text-4xl font-black text-text">${plan.price}</span>
-                                    <span className="text-muted font-medium">{plan.period}</span>
+                                    <span className="text-4xl font-black text-white">${plan.price}</span>
+                                    <span className="text-slate-500 font-medium">{plan.period}</span>
                                     </div>
-                                    <p className="text-sm text-muted mb-8 leading-relaxed">{plan.desc}</p>
+                                    <p className="text-sm text-slate-400 mb-8 leading-relaxed">{plan.desc}</p>
                                     <ul className="space-y-4 mb-8 flex-1">
                                         {plan.features.map((f, idx) => (
-                                            <li key={idx} className="flex gap-3 text-sm text-text">
-                                                <Icon name="check" className={`mt-0.5 ${plan.highlight ? 'text-primary' : 'text-muted'}`} /> 
+                                            <li key={idx} className="flex gap-3 text-sm text-slate-300">
+                                                <Icon name="check" className={`mt-0.5 ${plan.highlight ? 'text-primary' : 'text-slate-600'}`} /> 
                                                 <span className="font-medium">{f}</span>
                                             </li>
                                         ))}
@@ -656,12 +656,12 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
                         </div>
                     ) : (
                         <div className="max-w-md mx-auto animate-fade-in py-10">
-                             <button onClick={() => setCheckoutPlan(null)} className="text-muted hover:text-text mb-8 flex items-center gap-2 text-sm font-medium">
+                             <button onClick={() => setCheckoutPlan(null)} className="text-slate-400 hover:text-white mb-8 flex items-center gap-2 text-sm font-medium">
                                 <Icon name="arrow-left" /> Back to Plans
                             </button>
-                            <div className="bg-surface p-6 rounded-2xl border border-border mb-6 text-center">
-                                <p className="text-muted text-sm mb-1">Total to pay</p>
-                                <div className="text-4xl font-black text-text">${checkoutPlan.price}</div>
+                            <div className="bg-slate-900 p-6 rounded-2xl border border-slate-700 mb-6 text-center">
+                                <p className="text-slate-400 text-sm mb-1">Total to pay</p>
+                                <div className="text-4xl font-black text-white">${checkoutPlan.price}</div>
                                 <div className="text-primary font-bold text-sm mt-1">{checkoutPlan.name} Plan</div>
                             </div>
 
@@ -684,7 +684,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
 
       {/* Sidebar Menu */}
       <div className="w-full md:w-64 flex-shrink-0">
-        <h2 className="text-xl font-bold text-text mb-6 px-2">{t('settings')}</h2>
+        <h2 className="text-xl font-bold text-white mb-6 px-2">{t('settings')}</h2>
         <nav className="space-y-2">
           {[
             { id: 'account', label: t('account'), icon: 'user' },
@@ -700,7 +700,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
               className={`w-full flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all duration-300
                 ${activeTab === item.id 
                   ? `bg-primary text-white shadow-lg shadow-primary/25 translate-x-1`
-                  : 'text-muted hover:bg-surface/50 hover:text-text'}
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'}
               `}
             >
               <Icon name={item.icon} className={`w-5 ${dir === 'rtl' ? 'ml-3' : 'mr-3'}`} />
@@ -711,7 +711,7 @@ export const Settings: React.FC<SettingsProps> = ({ user, onSave, onUserUpdate }
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 glass-card rounded-3xl border border-border p-8 md:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl bg-surface/40">
+      <div className="flex-1 glass-card rounded-3xl border border-white/5 p-8 md:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl bg-slate-900/40">
          {renderContent()}
 
          {/* Sticky Footer for Save */}

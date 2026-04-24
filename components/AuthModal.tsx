@@ -131,14 +131,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
       ></div>
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-surface border border-border rounded-2xl shadow-2xl overflow-hidden animate-fade-in">
+      <div className="relative w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden animate-fade-in">
         
         {/* Header Tabs */}
-        <div className="flex border-b border-border">
+        <div className="flex border-b border-slate-700">
           <button
             onClick={() => { setMode('login'); setGlobalError(null); }}
             className={`flex-1 py-4 text-sm font-medium transition-colors ${
-              mode === 'login' ? 'bg-surface/50 text-text border-b-2 border-primary' : 'text-muted hover:text-text hover:bg-surface/30'
+              mode === 'login' ? 'bg-slate-800 text-white border-b-2 border-primary' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
             }`}
           >
             Login
@@ -146,7 +146,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
           <button
             onClick={() => { setMode('signup'); setGlobalError(null); }}
             className={`flex-1 py-4 text-sm font-medium transition-colors ${
-              mode === 'signup' ? 'bg-surface/50 text-text border-b-2 border-primary' : 'text-muted hover:text-text hover:bg-surface/30'
+              mode === 'signup' ? 'bg-slate-800 text-white border-b-2 border-primary' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
             }`}
           >
             Sign Up
@@ -159,10 +159,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
             <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-3 text-primary">
               <Icon name={mode === 'login' ? 'right-to-bracket' : 'user-plus'} className="text-xl" />
             </div>
-            <h2 className="text-2xl font-bold text-text">
+            <h2 className="text-2xl font-bold text-white">
               {mode === 'login' ? 'Welcome Back' : 'Create Account'}
             </h2>
-            <p className="text-muted text-sm mt-1">
+            <p className="text-slate-400 text-sm mt-1">
               {mode === 'login' ? 'Enter your details to access your workspace.' : 'Start your AI learning journey today.'}
             </p>
           </div>
@@ -170,11 +170,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === 'signup' && (
               <div>
-                <label className="block text-xs font-medium text-muted mb-1.5 uppercase">Full Name</label>
+                <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase">Full Name</label>
                 <div className="relative group">
                   <Icon name="user" className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors 
                     ${getFieldStatus('name', errors.name) === 'error' ? 'text-red-400' : 
-                      getFieldStatus('name', errors.name) === 'success' ? 'text-emerald-400' : 'text-muted group-focus-within:text-primary'}`} 
+                      getFieldStatus('name', errors.name) === 'success' ? 'text-emerald-400' : 'text-slate-500 group-focus-within:text-primary'}`} 
                   />
                   <input 
                     type="text" 
@@ -182,12 +182,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
                     onChange={e => setFormData({...formData, name: e.target.value})}
                     onBlur={() => handleBlur('name')}
                     placeholder="John Doe"
-                    className={`w-full bg-background border rounded-lg py-2.5 pl-10 pr-10 text-text focus:ring-1 outline-none transition-all placeholder:text-muted/50
+                    className={`w-full bg-slate-950 border rounded-lg py-2.5 pl-10 pr-10 text-white focus:ring-1 outline-none transition-all placeholder:text-slate-600
                       ${getFieldStatus('name', errors.name) === 'error' 
                         ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' 
                         : getFieldStatus('name', errors.name) === 'success'
                         ? 'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/20'
-                        : 'border-border focus:border-primary focus:ring-primary'
+                        : 'border-slate-700 focus:border-primary focus:ring-primary'
                       }`}
                   />
                   {getFieldStatus('name', errors.name) === 'success' && (
@@ -199,11 +199,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
             )}
 
             <div>
-              <label className="block text-xs font-medium text-muted mb-1.5 uppercase">Email Address</label>
+              <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase">Email Address</label>
               <div className="relative group">
                 <Icon name="envelope" className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors 
                     ${getFieldStatus('email', errors.email) === 'error' ? 'text-red-400' : 
-                      getFieldStatus('email', errors.email) === 'success' ? 'text-emerald-400' : 'text-muted group-focus-within:text-primary'}`} 
+                      getFieldStatus('email', errors.email) === 'success' ? 'text-emerald-400' : 'text-slate-500 group-focus-within:text-primary'}`} 
                 />
                 <input 
                   type="email" 
@@ -211,12 +211,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
                   onChange={e => setFormData({...formData, email: e.target.value})}
                   onBlur={() => handleBlur('email')}
                   placeholder="you@example.com"
-                  className={`w-full bg-background border rounded-lg py-2.5 pl-10 pr-10 text-text focus:ring-1 outline-none transition-all placeholder:text-muted/50
+                  className={`w-full bg-slate-950 border rounded-lg py-2.5 pl-10 pr-10 text-white focus:ring-1 outline-none transition-all placeholder:text-slate-600
                     ${getFieldStatus('email', errors.email) === 'error' 
                       ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' 
                       : getFieldStatus('email', errors.email) === 'success'
                       ? 'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/20'
-                      : 'border-border focus:border-primary focus:ring-primary'
+                      : 'border-slate-700 focus:border-primary focus:ring-primary'
                     }`}
                 />
                 {getFieldStatus('email', errors.email) === 'success' && (
@@ -227,11 +227,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-muted mb-1.5 uppercase">Password</label>
+              <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase">Password</label>
               <div className="relative group">
                 <Icon name="lock" className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors 
                     ${getFieldStatus('password', errors.password) === 'error' ? 'text-red-400' : 
-                      getFieldStatus('password', errors.password) === 'success' ? 'text-emerald-400' : 'text-muted group-focus-within:text-primary'}`} 
+                      getFieldStatus('password', errors.password) === 'success' ? 'text-emerald-400' : 'text-slate-500 group-focus-within:text-primary'}`} 
                 />
                 <input 
                   type="password" 
@@ -239,12 +239,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
                   onChange={e => setFormData({...formData, password: e.target.value})}
                   onBlur={() => handleBlur('password')}
                   placeholder="••••••••"
-                  className={`w-full bg-background border rounded-lg py-2.5 pl-10 pr-10 text-text focus:ring-1 outline-none transition-all placeholder:text-muted/50
+                  className={`w-full bg-slate-950 border rounded-lg py-2.5 pl-10 pr-10 text-white focus:ring-1 outline-none transition-all placeholder:text-slate-600
                     ${getFieldStatus('password', errors.password) === 'error' 
                       ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' 
                       : getFieldStatus('password', errors.password) === 'success'
                       ? 'border-emerald-500/50 focus:border-emerald-500 focus:ring-emerald-500/20'
-                      : 'border-border focus:border-primary focus:ring-primary'
+                      : 'border-slate-700 focus:border-primary focus:ring-primary'
                     }`}
                 />
                  {getFieldStatus('password', errors.password) === 'success' && (
@@ -266,7 +266,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
               disabled={loading || !isFormValid}
               className={`w-full font-bold py-3 rounded-lg shadow-lg transition-all flex justify-center items-center gap-2 mt-2
                 ${loading || !isFormValid 
-                  ? 'bg-surface text-muted cursor-not-allowed' 
+                  ? 'bg-slate-800 text-slate-500 cursor-not-allowed' 
                   : 'bg-primary hover:bg-primaryHover text-white shadow-primary/20'
                 }`}
             >
@@ -277,10 +277,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
 
           <div className="relative my-6">
              <div className="absolute inset-0 flex items-center">
-               <div className="w-full border-t border-border"></div>
+               <div className="w-full border-t border-slate-700"></div>
              </div>
              <div className="relative flex justify-center text-sm">
-               <span className="px-2 bg-surface text-muted">Or continue with</span>
+               <span className="px-2 bg-slate-900 text-slate-500">Or continue with</span>
              </div>
           </div>
 
@@ -288,16 +288,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, 
             type="button"
             onClick={handleGoogleLogin}
             disabled={loading}
-            className="w-full bg-text text-background font-bold py-3 rounded-lg hover:opacity-90 transition-all flex justify-center items-center gap-3 disabled:opacity-50"
+            className="w-full bg-white text-slate-900 font-bold py-3 rounded-lg hover:bg-slate-200 transition-all flex justify-center items-center gap-3 disabled:opacity-50"
           >
-             {loading ? <Icon name="spinner" className="fa-spin text-background" /> : <Icon name="google" type="brands" className="text-lg" />}
+             {loading ? <Icon name="spinner" className="fa-spin text-slate-900" /> : <Icon name="google" type="brands" className="text-lg" />}
              Google
           </button>
           
           <div className="mt-6 text-center">
              <button 
                onClick={onClose}
-               className="text-muted hover:text-text text-sm"
+               className="text-slate-500 hover:text-white text-sm"
              >
                Cancel
              </button>

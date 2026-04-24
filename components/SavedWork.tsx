@@ -78,26 +78,26 @@ export const SavedWork: React.FC<SavedWorkProps> = ({ user }) => {
        
        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
           <div>
-            <h1 className="text-4xl font-black text-text mb-2">Saved Work</h1>
-            <p className="text-muted font-medium">Access your study history and generated content.</p>
+            <h1 className="text-4xl font-black text-white mb-2">Saved Work</h1>
+            <p className="text-slate-400 font-medium">Access your study history and generated content.</p>
           </div>
           
           <div className="flex gap-4 w-full md:w-auto">
              <div className="relative flex-1 md:w-72 group">
-                <Icon name="magnifying-glass" className="absolute left-4 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-primary transition-colors" />
+                <Icon name="magnifying-glass" className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" />
                 <input 
                   type="text" 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search tasks..."
-                  className="w-full bg-surface/50 border border-border rounded-xl py-3 pl-12 pr-4 text-text focus:ring-1 focus:ring-primary focus:border-primary outline-none backdrop-blur-sm transition-all shadow-sm"
+                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white focus:ring-1 focus:ring-primary focus:border-primary outline-none backdrop-blur-sm transition-all shadow-sm"
                 />
              </div>
              <div className="relative">
                 <select 
                   value={filterType}
                   onChange={(e) => setFilterType(e.target.value)}
-                  className="bg-surface/50 border border-border rounded-xl px-4 py-3 text-text focus:ring-1 focus:ring-primary outline-none appearance-none pr-10 backdrop-blur-sm transition-all cursor-pointer shadow-sm hover:bg-surface/80"
+                  className="bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-1 focus:ring-primary outline-none appearance-none pr-10 backdrop-blur-sm transition-all cursor-pointer shadow-sm hover:bg-slate-800/50"
                 >
                     <option value="all">All Types</option>
                     <option value="summary">Summary</option>
@@ -109,7 +109,7 @@ export const SavedWork: React.FC<SavedWorkProps> = ({ user }) => {
                     <option value="proofread">Proofread</option>
                     <option value="translate">Translate</option>
                 </select>
-                <Icon name="chevron-down" className="absolute right-4 top-1/2 -translate-y-1/2 text-muted text-xs pointer-events-none" />
+                <Icon name="chevron-down" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none" />
              </div>
           </div>
        </div>

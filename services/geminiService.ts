@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -18,7 +18,7 @@ Return the result in clear Markdown format.
 export const generateAdvisorResponse = async (history: { role: string, content: string }[], message: string): Promise<string> => {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-3.1-pro-preview',
       contents: [
         ...history.map(h => ({ role: h.role === 'assistant' ? 'model' : 'user', parts: [{ text: h.content }] })),
         { role: 'user', parts: [{ text: message }] }
@@ -35,53 +35,45 @@ export const generateAdvisorResponse = async (history: { role: string, content: 
   }
 };
 
-export const processTask = async (text: string, type: string, language: string = 'English', imageBase64?: string): Promise<string> => {
-  let promptText = "";
-  
-  switch(type) {
-    case 'Summarize':
-      promptText = `Please summarize the following content. Keep it concise and capture the main points. Language: ${language}.\n\nContent:\n${text}`;
-      break;
-    case 'Generate Notes':
-      promptText = `Convert the following content into structured study notes (bullet points and key takeaways). Language: ${language}.\n\nContent:\n${text}`;
-      break;
-    case 'Proofread':
-      promptText = `Proofread the following text. Correct grammar and spelling, and suggest improvements for clarity. Language: ${language}.\n\nText:\n${text}`;
-      break;
-    case 'Translate':
-      promptText = `Translate the following content into ${language}.\n\nContent:\n${text}`;
-      break;
-    case 'Simplify':
-      promptText = `Explain the following content like I am 5 years old. Use simple analogies. Language: ${language}.\n\nContent:\n${text}`;
-      break;
-    case 'Quiz':
-      promptText = `Generate a 5-question multiple choice quiz based on the following content. Include the answer key at the bottom. Language: ${language}.\n\nContent:\n${text}`;
-      break;
-    case 'Flashcards':
-      promptText = `Generate a set of flashcards based on the content. Format each as "**Front:** [Concept] - **Back:** [Definition]". Generate at least 5-10 cards. Language: ${language}.\n\nContent:\n${text}`;
-      break;
-    case 'Essay Outline':
-      promptText = `Create a detailed essay outline based on the topic or content provided. Include Introduction (Hook, Thesis), Body Paragraphs (Topic Sentences, Supporting Points), and Conclusion. Language: ${language}.\n\nContent/Topic:\n${text}`;
-      break;
-    case 'Analyze Image':
-      promptText = `Analyze this image. Describe what you see, extract any text, and explain key concepts. Language: ${language}.\n\nAdditional Context:\n${text}`;
-      break;
-    default:
-      promptText = text;
+export async function* generateAdvisorStream(history: { role: string, content: string }[], message: string) {
+  try {
+    const stream = await ai.models.generateContentStream({
+      model: 'gemini-3.1-pro-preview',
+      contents: [
+        ...history.map(h => ({ role: h.role === 'assistant' ? 'model' : 'user', parts: [{ text: h.content }] })),
+        { role: 'user', parts: [{ text: message }] }
+      ],
+      config: {
+        systemInstruction: SYSTEM_INSTRUCTION_ADVISOR,
+        temperature: 0.7,
+      },
+    });
+
+    for await (const chunk of stream) {
+      if (chunk.text) {
+        yield chunk.text;
+      }
+    }
+  } catch (error) {
+    console.error("Gemini Stream Error:", error);
+    yield " [Error: Connection lost] ";
   }
+}
+
+export const processTask = async (text: string, type: string, language: string = 'English', imageBase64?: string): Promise<string> => {
+  const promptText = getPromptForTask(text, type, language);
 
   try {
     const parts: any[] = [{ text: promptText }];
     
     if (imageBase64) {
-      // Extract base64 data if it contains the prefix
       const base64Data = imageBase64.includes('base64,') 
         ? imageBase64.split('base64,')[1] 
         : imageBase64;
 
       parts.unshift({
         inlineData: {
-          mimeType: 'image/jpeg', // Assuming jpeg for simplicity, though the API detects it usually
+          mimeType: 'image/jpeg',
           data: base64Data
         }
       });
@@ -101,3 +93,28 @@ export const processTask = async (text: string, type: string, language: string =
     throw new Error("Failed to process task");
   }
 };
+
+function getPromptForTask(text: string, type: string, language: string): string {
+  switch(type) {
+    case 'Summarize':
+      return `Please summarize the following content. Keep it concise and capture the main points. Language: ${language}.\n\nContent:\n${text}`;
+    case 'Generate Notes':
+      return `Convert the following content into structured study notes (bullet points and key takeaways). Language: ${language}.\n\nContent:\n${text}`;
+    case 'Proofread':
+      return `Proofread the following text. Correct grammar and spelling, and suggest improvements for clarity. Language: ${language}.\n\nText:\n${text}`;
+    case 'Translate':
+      return `Translate the following content into ${language}.\n\nContent:\n${text}`;
+    case 'Simplify':
+      return `Explain the following content like I am 5 years old. Use simple analogies. Language: ${language}.\n\nContent:\n${text}`;
+    case 'Quiz':
+      return `Generate a 5-question multiple choice quiz based on the following content. Include the answer key at the bottom. Language: ${language}.\n\nContent:\n${text}`;
+    case 'Flashcards':
+      return `Generate a set of flashcards based on the content. Format each as "**Front:** [Concept] - **Back:** [Definition]". Generate at least 5-10 cards. Language: ${language}.\n\nContent:\n${text}`;
+    case 'Essay Outline':
+      return `Create a detailed essay outline based on the topic or content provided. Include Introduction (Hook, Thesis), Body Paragraphs (Topic Sentences, Supporting Points), and Conclusion. Language: ${language}.\n\nContent/Topic:\n${text}`;
+    case 'Analyze Image':
+      return `Analyze this image. Describe what you see, extract any text, and explain key concepts. Language: ${language}.\n\nAdditional Context:\n${text}`;
+    default:
+      return text;
+  }
+}

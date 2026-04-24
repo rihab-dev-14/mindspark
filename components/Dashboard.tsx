@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Icon } from './Icon';
 import { User, Task } from '../types';
-import { processTask } from '../services/geminiService';
+import { unifiedProcessTask } from '../services/unifiedAIService';
 import { storageService } from '../services/storageService';
 import { useApp } from '../contexts/AppContext';
 
@@ -111,7 +111,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
     setResult(null);
     
     try {
-      const output = await processTask(inputText, type, language, selectedImage || undefined);
+      const output = await unifiedProcessTask(inputText, type, language, selectedImage || undefined);
       setResult(output);
       
       const newTask: Task = {
@@ -180,7 +180,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 md:mb-10 gap-6">
         <div className="space-y-2">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl md:text-5xl font-black text-text tracking-tighter leading-tight">
+            <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter leading-tight">
               {t('welcome')}, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">{user.name.split(' ')[0]}</span>
             </h1>
             {user.plan !== 'Free' && (
@@ -189,35 +189,35 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
               </span>
             )}
           </div>
-          <p className="text-muted text-lg md:text-xl font-medium">{t('readyMessage')}</p>
+          <p className="text-slate-400 text-lg md:text-xl font-medium">{t('readyMessage')}</p>
         </div>
 
         {/* Quick Stats */}
         <div className="flex gap-4 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
-           <div className="bg-surface/40 backdrop-blur-md border border-border p-4 rounded-2xl flex items-center gap-4 min-w-[140px]">
+           <div className="bg-slate-900/40 backdrop-blur-md border border-white/5 p-4 rounded-2xl flex items-center gap-4 min-w-[140px]">
               <div className="w-10 h-10 rounded-xl bg-primary/20 text-primary flex items-center justify-center shadow-inner shadow-primary/20"><Icon name="bolt" /></div>
               <div>
-                 <div className="text-xl font-black text-text">24</div>
-                 <div className="text-[10px] font-bold text-muted uppercase tracking-widest">Tasks</div>
+                 <div className="text-xl font-black text-white">24</div>
+                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Tasks</div>
               </div>
            </div>
-           <div className="bg-surface/40 backdrop-blur-md border border-border p-4 rounded-2xl flex items-center gap-4 min-w-[140px]">
+           <div className="bg-slate-900/40 backdrop-blur-md border border-white/5 p-4 rounded-2xl flex items-center gap-4 min-w-[140px]">
               <div className="w-10 h-10 rounded-xl bg-accent/20 text-accent flex items-center justify-center shadow-inner shadow-accent/20"><Icon name="clock" /></div>
               <div>
-                 <div className="text-xl font-black text-text">12h</div>
-                 <div className="text-[10px] font-bold text-muted uppercase tracking-widest">Saved</div>
+                 <div className="text-xl font-black text-white">12h</div>
+                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Saved</div>
               </div>
            </div>
         </div>
       </div>
 
       {/* Input Card - Premium Glass Look */}
-      <div className="glass rounded-3xl p-5 md:p-8 space-y-6 shadow-2xl relative overflow-hidden group border border-border bg-surface/40 backdrop-blur-xl">
+      <div className="glass rounded-3xl p-5 md:p-8 space-y-6 shadow-2xl relative overflow-hidden group border border-white/5 bg-slate-900/40 backdrop-blur-xl">
         {/* Glow effect */}
         <div className={`absolute top-0 ${dir === 'rtl' ? 'right-0' : 'left-0'} w-full h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-50 group-hover:opacity-100 transition-opacity`}></div>
         
         <div className="flex justify-between items-center">
-          <h2 className="text-lg md:text-xl font-bold text-text flex items-center gap-2">
+          <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center"><Icon name="wand-magic-sparkles" /></div>
             <span>{t('startTask')}</span>
           </h2>
@@ -237,7 +237,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                value={inputText}
                onChange={(e) => setInputText(e.target.value)}
                placeholder={selectedImage ? "Add context about the image..." : "Paste your text here or use the microphone..."}
-               className="w-full h-48 bg-background/50 border border-border rounded-2xl p-6 text-base text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none placeholder-muted leading-relaxed hover:border-border/50 pb-12"
+               className="w-full h-48 bg-slate-950/50 border border-white/10 rounded-2xl p-6 text-base text-slate-200 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none placeholder-slate-500 leading-relaxed hover:border-white/20 pb-12"
              ></textarea>
              
              {/* Microphone Button */}
@@ -246,7 +246,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                 className={`absolute bottom-4 right-4 p-3 rounded-xl transition-all shadow-lg flex items-center gap-2 text-sm font-bold
                   ${isListening 
                     ? 'bg-red-500 text-white animate-pulse shadow-red-500/20' 
-                    : 'bg-surface text-muted hover:bg-primary hover:text-white hover:shadow-primary/20'
+                    : 'bg-slate-800 text-slate-400 hover:bg-primary hover:text-white hover:shadow-primary/20'
                   }`}
              >
                 <Icon name={isListening ? 'microphone-slash' : 'microphone'} />
@@ -255,7 +255,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
            </div>
            
            {selectedImage && (
-              <div className="w-full md:w-48 h-48 bg-background/50 border border-border rounded-2xl overflow-hidden relative group/img shadow-xl flex-shrink-0">
+              <div className="w-full md:w-48 h-48 bg-slate-950/50 border border-white/10 rounded-2xl overflow-hidden relative group/img shadow-xl flex-shrink-0">
                  <img src={selectedImage} alt="Selected" className="w-full h-full object-cover" />
                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-all backdrop-blur-sm">
                     <button onClick={() => setSelectedImage(null)} className="p-3 bg-red-500 rounded-xl text-white shadow-lg hover:scale-110 transition-transform"><Icon name="xmark" /></button>
@@ -265,7 +265,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         </div>
 
         <div className="space-y-4 pt-2">
-            <div className="flex items-center gap-2 text-muted text-xs font-bold uppercase tracking-wider mb-2">
+            <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">
                 <Icon name="toolbox" /> Top 7 Student Tools
             </div>
             
@@ -322,12 +322,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
               />
            </div>
 
-           <div className="flex flex-col sm:flex-row gap-3 items-center w-full justify-between border-t border-border pt-4">
+           <div className="flex flex-col sm:flex-row gap-3 items-center w-full justify-between border-t border-white/5 pt-4">
               <div className="w-full sm:w-auto">
                  {!selectedImage ? (
                     <button 
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full sm:w-auto bg-surface hover:bg-surface/80 text-text border border-border px-5 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-lg"
+                    className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 px-5 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 hover:text-white hover:border-slate-500 shadow-lg"
                     >
                     <Icon name="image" />
                     {t('uploadImage')}
@@ -349,7 +349,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                 <select 
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    className="flex-1 sm:flex-none bg-background border border-border text-text text-sm font-medium rounded-xl focus:ring-primary focus:border-primary block p-3 outline-none hover:border-border/50 transition-colors cursor-pointer"
+                    className="flex-1 sm:flex-none bg-slate-950 border border-slate-700 text-slate-300 text-sm font-medium rounded-xl focus:ring-primary focus:border-primary block p-3 outline-none hover:border-slate-500 transition-colors cursor-pointer"
                 >
                     <option value="English">English</option>
                     <option value="Spanish">Spanish</option>
@@ -374,24 +374,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
       {/* Result Area */}
       {result && (
-        <div className={`glass rounded-3xl p-6 md:p-8 shadow-2xl ${dir === 'rtl' ? 'border-r-4' : 'border-l-4'} border-primary animate-fade-in scroll-mt-24 border-t border-b border-border bg-surface/60 backdrop-blur-xl`} id="result-area">
+        <div className={`glass rounded-3xl p-6 md:p-8 shadow-2xl ${dir === 'rtl' ? 'border-r-4' : 'border-l-4'} border-primary animate-fade-in scroll-mt-24 border-t border-b border-white/5 bg-slate-900/60 backdrop-blur-xl`} id="result-area">
            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-              <h3 className="text-xl font-bold text-text flex items-center gap-2">
+              <h3 className="text-xl font-bold text-white flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20"><Icon name="wand-sparkles" className="text-white text-sm" /></div>
                 {t('generatedResult')}
               </h3>
               <div className="flex gap-2 items-center self-end">
-                 <div className="flex gap-2 mr-2 border-r border-border pr-4">
+                 <div className="flex gap-2 mr-2 border-r border-white/10 pr-4">
                     <button 
                       onClick={() => handleShare('twitter', result)}
-                      className="text-muted hover:text-text p-2.5 transition-colors rounded-xl hover:bg-surface bg-background/30 border border-border"
+                      className="text-slate-400 hover:text-white p-2.5 transition-colors rounded-xl hover:bg-slate-800 bg-slate-950/30 border border-white/5"
                       title={t('shareOnTwitter')}
                     >
                         <Icon name="twitter" type="brands" />
                     </button>
                     <button 
                       onClick={() => handleShare('whatsapp', result)}
-                      className="text-muted hover:text-text p-2.5 transition-colors rounded-xl hover:bg-surface bg-background/30 border border-border"
+                      className="text-slate-400 hover:text-white p-2.5 transition-colors rounded-xl hover:bg-slate-800 bg-slate-950/30 border border-white/5"
                       title={t('shareOnWhatsApp')}
                     >
                         <Icon name="whatsapp" type="brands" />
@@ -400,15 +400,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
                  <button 
                    onClick={() => navigator.clipboard.writeText(result)}
-                   className="text-muted hover:text-text p-2.5 transition-colors rounded-xl hover:bg-surface bg-background/30 border border-border"
+                   className="text-slate-400 hover:text-white p-2.5 transition-colors rounded-xl hover:bg-slate-800 bg-slate-950/30 border border-white/5"
                    title="Copy"
                  >
                     <Icon name="copy"/>
                  </button>
-                 <button onClick={() => setResult(null)} className="text-muted hover:text-text p-2.5 transition-colors rounded-xl hover:bg-surface bg-background/30 border border-border"><Icon name="xmark"/></button>
+                 <button onClick={() => setResult(null)} className="text-slate-400 hover:text-white p-2.5 transition-colors rounded-xl hover:bg-slate-800 bg-slate-950/30 border border-white/5"><Icon name="xmark"/></button>
               </div>
            </div>
-           <div className="prose prose-invert max-w-none text-text bg-background/50 p-6 md:p-8 rounded-2xl border border-border shadow-inner leading-8">
+           <div className="prose prose-invert max-w-none text-slate-300 bg-slate-950/50 p-6 md:p-8 rounded-2xl border border-white/5 shadow-inner leading-8">
              <div className="whitespace-pre-wrap font-sans break-words">{result}</div>
            </div>
         </div>
@@ -417,8 +417,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       {/* Recent Work */}
       <div>
         <div className="flex items-center justify-between mb-6 px-1">
-          <h2 className="text-xl font-bold text-text flex items-center gap-2">
-              <Icon name="clock-rotate-left" className="text-muted"/> {t('recentWork')}
+          <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              <Icon name="clock-rotate-left" className="text-slate-400"/> {t('recentWork')}
           </h2>
           <button className="text-sm font-bold text-primary hover:text-primaryHover transition-colors flex items-center gap-1">
              View All <Icon name="arrow-right" />
@@ -426,16 +426,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         </div>
         
         {tasks.length === 0 ? (
-          <div className="text-center py-16 border-2 border-dashed border-border rounded-3xl bg-surface/20">
-             <div className="w-20 h-20 bg-surface/50 rounded-full flex items-center justify-center mx-auto mb-6 text-muted">
+          <div className="text-center py-16 border-2 border-dashed border-slate-800 rounded-3xl bg-slate-900/20">
+             <div className="w-20 h-20 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-600">
                 <Icon name="layer-group" className="text-3xl" />
              </div>
-             <p className="text-muted font-medium text-lg">{t('noTasks')}</p>
+             <p className="text-slate-400 font-medium text-lg">{t('noTasks')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tasks.map((task) => (
-               <div key={task.id} className="glass-card rounded-2xl p-6 flex flex-col gap-4 group cursor-pointer h-full border border-border hover:border-primary/30 bg-surface/40 hover:bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+               <div key={task.id} className="glass-card rounded-2xl p-6 flex flex-col gap-4 group cursor-pointer h-full border border-white/5 hover:border-primary/30 bg-slate-900/40 hover:bg-slate-800/60 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
                   <div className="flex items-start justify-between">
                      <div className={`p-3 rounded-xl shadow-lg ${
                         task.type === 'summary' ? 'bg-primary/20 text-primary shadow-primary/10' : 
@@ -460,23 +460,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                         } />
                      </div>
                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="p-2 hover:bg-surface rounded-lg text-muted hover:text-text transition-colors"><Icon name="pen" /></button>
+                        <button className="p-2 hover:bg-slate-700 rounded-lg text-slate-400 hover:text-white transition-colors"><Icon name="pen" /></button>
                      </div>
                   </div>
                   
                   <div>
-                     <h3 className="font-bold text-lg text-text truncate pr-4 group-hover:text-primary transition-colors">{task.title}</h3>
-                     <p className="text-xs text-muted mt-1 flex items-center gap-1 font-medium">
+                     <h3 className="font-bold text-lg text-slate-200 truncate pr-4 group-hover:text-white transition-colors">{task.title}</h3>
+                     <p className="text-xs text-slate-500 mt-1 flex items-center gap-1 font-medium">
                         <Icon name="clock" className="text-[10px]" />
                         {new Date(task.date).toLocaleDateString()}
                      </p>
                   </div>
                   
                   <div className="relative">
-                    <p className="text-sm text-muted line-clamp-3 leading-relaxed">
+                    <p className="text-sm text-slate-400 line-clamp-3 leading-relaxed">
                         {task.preview}
                     </p>
-                    <div className="absolute bottom-0 left-0 w-full h-6 bg-gradient-to-t from-background/10 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 w-full h-6 bg-gradient-to-t from-slate-900/10 to-transparent"></div>
                   </div>
                </div>
             ))}
@@ -485,13 +485,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       </div>
 
       {/* Social Footer in Dashboard */}
-      <div className="mt-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 opacity-70 hover:opacity-100 transition-opacity">
-         <span className="text-xs text-muted">© 2024 MindSpark AI</span>
+      <div className="mt-12 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 opacity-70 hover:opacity-100 transition-opacity">
+         <span className="text-xs text-slate-500">© 2024 MindSpark AI</span>
          <div className="flex gap-4">
-            <a href="#" className="w-8 h-8 rounded-full bg-surface flex items-center justify-center text-muted hover:text-white hover:bg-primary transition-all"><Icon name="twitter" type="brands" /></a>
-            <a href="#" className="w-8 h-8 rounded-full bg-surface flex items-center justify-center text-muted hover:text-white hover:bg-primary transition-all"><Icon name="instagram" type="brands" /></a>
-            <a href="#" className="w-8 h-8 rounded-full bg-surface flex items-center justify-center text-muted hover:text-white hover:bg-primary transition-all"><Icon name="linkedin" type="brands" /></a>
-            <a href="#" className="w-8 h-8 rounded-full bg-surface flex items-center justify-center text-muted hover:text-white hover:bg-primary transition-all"><Icon name="github" type="brands" /></a>
+            <a href="#" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary transition-all"><Icon name="twitter" type="brands" /></a>
+            <a href="#" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary transition-all"><Icon name="instagram" type="brands" /></a>
+            <a href="#" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary transition-all"><Icon name="linkedin" type="brands" /></a>
+            <a href="#" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary transition-all"><Icon name="github" type="brands" /></a>
          </div>
       </div>
     </div>

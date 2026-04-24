@@ -5,6 +5,7 @@ import { Dashboard } from './components/Dashboard';
 import { ChatAdvisor } from './components/ChatAdvisor';
 import { Settings } from './components/Settings';
 import { SavedWork } from './components/SavedWork';
+import { ApiExplorer } from './components/ApiExplorer';
 import { AppView, User } from './types';
 import { Icon } from './components/Icon';
 import { storageService } from './services/storageService';
@@ -56,25 +57,27 @@ const InnerApp = () => {
         return <Settings user={user} onSave={(s) => console.log(s)} onUserUpdate={setUser} />;
       case AppView.SAVED:
         return <SavedWork user={user} />;
+      case AppView.APIS:
+        return <ApiExplorer />;
       case AppView.ABOUT:
          return (
-          <div className="flex items-center justify-center h-full text-muted animate-fade-in z-10 relative">
-             <div className="text-center p-8 glass rounded-3xl max-w-md w-full border border-border shadow-2xl">
+          <div className="flex items-center justify-center h-full text-slate-500 animate-fade-in z-10 relative">
+             <div className="text-center p-8 glass rounded-3xl max-w-md w-full border border-white/5 shadow-2xl">
                 <div className="w-20 h-20 bg-gradient-to-tr from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 mx-auto mb-6 transform rotate-3 hover:rotate-6 transition-transform">
                     <Icon name="bolt" className="text-white text-4xl" />
                 </div>
-                <h2 className="text-3xl font-bold text-text mb-2">MindSpark</h2>
-                <p className="text-muted mb-8 font-medium">Version 2.2.0 (Pro)</p>
+                <h2 className="text-3xl font-bold text-white mb-2">MindSpark</h2>
+                <p className="text-slate-400 mb-8 font-medium">Version 2.2.0 (Pro)</p>
                 
                 <div className="space-y-4">
-                    <button className="w-full py-4 bg-surface/50 text-text rounded-xl hover:bg-surface transition-all flex items-center justify-center gap-3 backdrop-blur-md border border-border">
+                    <button className="w-full py-4 bg-slate-800/50 text-slate-300 rounded-xl hover:text-white hover:bg-slate-700/80 transition-all flex items-center justify-center gap-3 backdrop-blur-md border border-white/5">
                         <Icon name="envelope" /> Contact Support
                     </button>
                     <button onClick={handleLogout} className="w-full py-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl hover:bg-red-500/20 transition-all flex items-center justify-center gap-3 backdrop-blur-md">
                         <Icon name="right-from-bracket" /> Sign Out
                     </button>
                 </div>
-                <div className="mt-8 text-xs text-muted font-mono">
+                <div className="mt-8 text-xs text-slate-600 font-mono">
                     Engineered for high performance learning.
                 </div>
              </div>
@@ -112,11 +115,11 @@ const InnerApp = () => {
         `}
       >
         {/* Top Mobile Header */}
-        <header className="h-16 flex md:hidden items-center justify-between px-4 border-b border-border bg-surface/50 backdrop-blur-md z-20 sticky top-0">
-           <button onClick={() => setSidebarOpen(true)} className="text-muted p-2 hover:text-text transition-colors">
+        <header className="h-16 flex md:hidden items-center justify-between px-4 border-b border-white/5 bg-slate-900/50 backdrop-blur-md z-20 sticky top-0">
+           <button onClick={() => setSidebarOpen(true)} className="text-slate-400 p-2 hover:text-white transition-colors">
               <Icon name="bars" />
            </button>
-           <span className="font-bold text-text flex items-center gap-2">
+           <span className="font-bold text-white flex items-center gap-2">
              <div className="w-6 h-6 rounded bg-gradient-to-tr from-primary to-accent flex items-center justify-center"><Icon name="bolt" className="text-[10px] text-white"/></div>
              MindSpark
            </span>
