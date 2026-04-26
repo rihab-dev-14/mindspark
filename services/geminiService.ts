@@ -1,6 +1,14 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let genAIInstance: GoogleGenAI | null = null;
+
+const getGenAI = (): any => {
+  if (!genAIInstance) {
+    const apiKey = (process.env.GEMINI_API_KEY || localStorage.getItem('mindspark_gemini_key') || 'MISSING_KEY');
+    genAIInstance = new GoogleGenAI({ apiKey } as any);
+  }
+  return genAIInstance;
+};
 
 const SYSTEM_INSTRUCTION_ADVISOR = `
 You are 'Sparky', an enthusiastic, empathetic, and highly effective AI Study Advisor for MindSpark.
@@ -17,8 +25,9 @@ Return the result in clear Markdown format.
 
 export const generateAdvisorResponse = async (history: { role: string, content: string }[], message: string): Promise<string> => {
   try {
+    const ai: any = getGenAI();
     const response = await ai.models.generateContent({
-      model: 'gemini-3.1-pro-preview',
+      model: 'gemini-1.5-flash',
       contents: [
         ...history.map(h => ({ role: h.role === 'assistant' ? 'model' : 'user', parts: [{ text: h.content }] })),
         { role: 'user', parts: [{ text: message }] }
@@ -37,8 +46,9 @@ export const generateAdvisorResponse = async (history: { role: string, content: 
 
 export async function* generateAdvisorStream(history: { role: string, content: string }[], message: string) {
   try {
+    const ai: any = getGenAI();
     const stream = await ai.models.generateContentStream({
-      model: 'gemini-3.1-pro-preview',
+      model: 'gemini-1.5-flash',
       contents: [
         ...history.map(h => ({ role: h.role === 'assistant' ? 'model' : 'user', parts: [{ text: h.content }] })),
         { role: 'user', parts: [{ text: message }] }
@@ -79,8 +89,9 @@ export const processTask = async (text: string, type: string, language: string =
       });
     }
 
+    const ai: any = getGenAI();
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-1.5-flash',
       contents: { parts },
       config: {
         systemInstruction: SYSTEM_INSTRUCTION_TASK,
